@@ -23,8 +23,9 @@ app.run(function($ionicPlatform) {
   });
 })
 
-app.controller('mainController', [function($scope){
+app.controller('mainController', function($scope){
 
-  app.mensagem = 'Ola mundo';
-  
-}])
+  //$scope.mensagem = 'Ola mundo lindo';
+  var tasks = new GettaskModel();
+  $scope.lista = tasks.items;
+})
