@@ -1,6 +1,6 @@
 function GettaskModel(){
 	 //este será o contrutor e irá retornar uma lista fixa de strings
-	 this.items = ['item 1','item 2','item 3','item 3'];
+	 //this.items = ['item 1','item 2','item 3','item 3'];
 
 	 //aqui irá retornar uma lista fixa de objetos
 	 this.items = [{nome:'item 1',Finalizada:false},
@@ -14,5 +14,9 @@ function GettaskModel(){
 	  //splice remove 1 a partir da posição passada splice(pos,1)
 	  //esse meotdo será invocado pelo controller
 	
-	  	///kljlkj
+		this.remove = function(item){
+			var pos = this.items.indexof(item);
+			this.items.splice(pos,1);
+
+		}
 	 }

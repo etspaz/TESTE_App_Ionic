@@ -29,6 +29,7 @@ app.controller('mainController', function($scope){
   var tasks = new GettaskModel();
   $scope.lista = tasks.items;
   $scope.ShowMarked = false;
+  $scope.RemoveStatus = false;
 
   $scope.onMarkTask = function(item){
     item.Finalizada = !item.Finalizada;
@@ -36,5 +37,18 @@ app.controller('mainController', function($scope){
 
   $scope.onHideItem = function(item){
     return item.Finalizada && !$scope.ShowMarked;
+  };
+
+  $scope.onItemRemove = function(item){
+
+    tasks.remove(item);
+  };
+
+  $scope.onClickRemove = function(){
+
+    $scope.RemoveStatus = !$scope.RemoveStatus;
+
   }
+
+
 })
