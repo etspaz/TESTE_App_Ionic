@@ -28,8 +28,13 @@ app.controller('mainController', function($scope){
   //$scope.mensagem = 'Ola mundo lindo';
   var tasks = new GettaskModel();
   $scope.lista = tasks.items;
+  $scope.ShowMarked = false;
 
   $scope.onMarkTask = function(item){
     item.Finalizada = !item.Finalizada;
   };
+
+  $scope.onHideItem = function(item){
+    return item.Finalizada && !$scope.ShowMarked;
+  }
 })

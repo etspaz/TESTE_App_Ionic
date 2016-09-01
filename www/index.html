@@ -36,10 +36,10 @@
           </div>
           <div class="col col-20">
             <label class="toggle">
-              <input type="checkbox">
+              <input type="checkbox" ng-model="ShowMarked">
               <div class="track">
                 <div class="handle">
-              
+              <!-- ok-->
                 </div>
               </div>
             </label>
@@ -49,7 +49,7 @@
       </ion-footer-bar>
       <ion-content>
         <ion-list>
-           <ion-item ng-repeat="item  in lista track by $index" ng-hide="item.Finalizada"> 
+           <ion-item ng-repeat="item  in lista track by $index" ng-hide="onHideItem(item)"> 
                <div class="row">
                  <div class="col col-90">
                    {{item.nome}}
