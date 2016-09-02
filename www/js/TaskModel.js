@@ -29,4 +29,11 @@ function GettaskModel(){
 
 	  }
 
+	  this.add = function(item){
+
+	  	//adiciona um item à lista
+	  	this.items.push(item);
+
+	  }
+
 }

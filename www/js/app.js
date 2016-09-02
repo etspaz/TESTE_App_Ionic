@@ -27,7 +27,8 @@ app.run(function($ionicPlatform) {
 //o modulo angular permite criar o padrão MVC
 //model ; view e controler
 //aqui será criado um controler
-app.controller('mainController', function($scope){
+//adicionado o $ionicPopup para criar popups no app
+app.controller('mainController', function($scope, $ionicPopup){
 
   /*
 //o parametro $scope será fará a comunicação entre a view e controllere
@@ -57,6 +58,40 @@ $scope.newMessage = function(newMSG){
   $scope.ShowMarked = false;
 
   $scope.RemoveStatus = false;
+
+  //função que permite exibir popup
+  //não precisa estar associada ao scope ($scope.geItem) pq não será chamada na view
+  //será chamada somente aqui no controller
+  function getItem(item){
+    //cria uma propriedade data que permitirá ao input (caixa de texto) acessar
+    //ler o seu conteúdo...
+    //por isso deve ser propriedade do $scope
+    $scope.data ={};
+    $scope.data.newTask = "";
+
+    //permite passar como parametros propriedades para titulo, botoes etc
+    //{title: Nova Tarefa} = parametro para titulo do popup
+    //buttons: [{text: "Ok"},{text: "Cancel"}] = insere dois botões no popup 
+    $ionicPopup.show({title: "Nova Tarefa",
+      scope: $scope,//cria uma propriedade que recebe o $scope, 
+      //para poder alterar a propriedade name com ng-model= 'data.newTask
+
+
+      //ng-model= 'data.newTask' permite alterar o conteúdo da 
+      //propriedade data.newtask do $scope
+      template: "<input type = 'text' placeholder = 'Tarefa' autofocus = 'true' ng-model= 'data.newTask'>",
+      buttons: [{text: "Ok",
+      //função onTap será executada qdo o ok do popup for apertado
+      //altera a propriedade nome com o conteúdo da prop newTask
+      onTap: function(e){
+        item.nome = $scope.data.newTask;
+        //somente executa o método add do model se o botão OK do popup for pressionado
+        // tasks.add(item) = executa o metodo de add do model, 
+        //passando o item com o texto digitado pelo user
+        tasks.add(item);
+      }
+    },{text: "Cancel"}]});
+  }
  
 
 //cria uma função que recebe o objeto item como parametro
@@ -92,6 +127,14 @@ $scope.newMessage = function(newMSG){
 
     $scope.RemoveStatus = !$scope.RemoveStatus;
   };
+
+  $scope.onItemAdd = function(){
+
+    var item = {nome: "KKKKK", Finalizada: false};
+    getItem(item);
+    
+    //tasks.add(item);
+  }
 
 
 })
