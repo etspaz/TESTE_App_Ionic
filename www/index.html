@@ -24,18 +24,24 @@
   </head>
   <body ng-app="starter">
 
+        <!-- associa essa view ao controller
+     com o ng-controller = "mainController"-->
     <ion-pane ng-controller="mainController">
       <ion-header-bar class="bar-energized">
         <h1 class="title">Teste Ionic App</h1>
       </ion-header-bar>
+      <!--ion-footer = rodapé -->
       <ion-footer-bar class="bar-calm">
+      <!--dividido em colunas para organizar, separando o interruptor de liga desliga do texto -->
         <div class="row">
           <div class="col col-80">
             <strong>Exibir Finalizadas</strong>
 
           </div>
           <div class="col col-20">
+            <!--toggle cria um objeto visual tipo interruptor -->
             <label class="toggle">
+            <!--se o check estiver marcado retorna true, senão retorna false -->
               <input type="checkbox" ng-model="ShowMarked">
               <div class="track">
                 <div class="handle">
@@ -48,16 +54,55 @@
         
       </ion-footer-bar>
       <ion-content>
-      <button class="button button-block button-assertive" ng-click="onClickRemove()"> Remover Tarefas</button>
+      <!--
+        Mensagem: {{mensagem}};
+        <br>
+        LÊ O O CONTEÚDO DE CADA POSIÇÃO DO array
+
+        <P> {{lista[0]}} </P>
+        <P> {{lista[1]}} </P>
+
+        <p ng-repeat="item in lista">
+          {{item}}
+        </p>
+        cria uma caixa de texto e
+        a propriedade ng-model (angular) = atualiza a propriedade mensagem criada no angular
+          <input type="text" placeholder="insira um texto" ng-model="mensagem">
+        <br>
+         cria um botão e no evento click chama a função que atualiza a propriedade mensagem cirada no angular
+
+        <button ng-click ="newMessage('Erika')">Nova Mensagem </button>
+
+        -->
+      <button class="button button-block button-assertive" ng-click="onClickRemove()">Remove</button>
         <ion-list show-delete="RemoveStatus">
+           <!--ng-hide esconde o item se o valor for true;
+          como estou apontando item.finalizada, cada item será oculto qdo for clicado no botão
+        que chama a função que muda o valor dessa propriedade,
+        porém, se o check de exibir finalizadas estiver true todos os items que estiverem
+        finalizados também ficarão visiveis
+        o metodo OnHideitem veirfica se a propriedade Finalizada está true (botaõ do item marcado) 
+        e se a propriedade ShowMarked está false (check exibir finalizadas desmarcado) e retorna true se isso for verdade
+        o ng-hide nos itens verifica a função OnHideitem para ocultar(OnHideitem = true) ou não o item finalizado (OnHideitem = false)-->
            <ion-item ng-repeat="item  in lista track by $index" ng-hide="onHideItem(item)"> 
+           <!--o uso de track by $index não é obrigatório,
+                porém, permite criar um ondex para varrer a lista
+                assim, podem ter elementos com conteudo identico que nãp dá erro-->
                <div class="row">
                  <div class="col col-90">
+                 <!-- para acessar diretamente propriedades criadas no $scope ( no angular JS)
+      usa-se {{}}-->
                    {{item.nome}}
-                   <ion-delete-button class="ion-minus-circled" ng-click="onItemRemove(item)"> </ion-delete-button>
+                   <!--item.nome exibe somente o conteudo da prorpiedad nome  -->
+                   <ion-delete-button class="ion-minus-circled" ng-click="onItemRemove($index)"> </ion-delete-button>
                  </div>
                  <div class="col col-10">
                    <button class="button button-small button-positive button-outline" ng-click="onMarkTask(item)"> <i class="icon ion-checkmark" ng-show="item.Finalizada"> </i>
+                   <!-- tag i do ionic permite add icons... sendo informado qual icone na classe
+                      no site do ionic tem vários modelos
+                      a diretiva ng-show permite exibir ou não o icone
+                     como no click dos botões está sendo executada uma funçao que retorna true ou false
+                    estou passando a propriedade Finalizada que será true ou false para exibir o icone check-->
                  </div> 
                </div> 
 
