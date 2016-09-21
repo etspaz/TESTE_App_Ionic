@@ -6,7 +6,9 @@ function GettaskModel(){
 	 this.items = [{nome:'item 1',Finalizada:false},
 	               {nome:'item 2',Finalizada:false},
 	               {nome:'item 3',Finalizada:false},
-	               {nome:'item 3',Finalizada:false}];
+	               {nome:'item 4',Finalizada:false},
+	               {nome:'item 5',Finalizada:false},
+	               {nome:'item 6',Finalizada:false}];
 	              //cada objeto tem duas propriedades: nome (string) e Finalizada (boolean)
 
 	  //função para remover 1 item da lista

@@ -28,7 +28,8 @@ app.run(function($ionicPlatform) {
 //model ; view e controler
 //aqui será criado um controler
 //adicionado o $ionicPopup para criar popups no app
-app.controller('mainController', function($scope, $ionicPopup){
+//$ionicListDelegate oferece métodos do list
+app.controller('mainController', function($scope, $ionicPopup, $ionicListDelegate){
 
   /*
 //o parametro $scope será fará a comunicação entre a view e controllere
@@ -62,12 +63,16 @@ $scope.newMessage = function(newMSG){
   //função que permite exibir popup
   //não precisa estar associada ao scope ($scope.geItem) pq não será chamada na view
   //será chamada somente aqui no controller
-  function getItem(item){
+  //o método geItem serve tanto para editar quanto para add novo
+  //por isso foi criado o parametro novo
+  function getItem(item, novo){
     //cria uma propriedade data que permitirá ao input (caixa de texto) acessar
     //ler o seu conteúdo...
     //por isso deve ser propriedade do $scope
     $scope.data ={};
-    $scope.data.newTask = "";
+    //passa o nome do item
+    //se for novov item passará em branco
+    $scope.data.newTask = item.nome;
 
     //permite passar como parametros propriedades para titulo, botoes etc
     //{title: Nova Tarefa} = parametro para titulo do popup
@@ -87,11 +92,19 @@ $scope.newMessage = function(newMSG){
         item.nome = $scope.data.newTask;
         //somente executa o método add do model se o botão OK do popup for pressionado
         // tasks.add(item) = executa o metodo de add do model, 
-        //passando o item com o texto digitado pelo user
-        tasks.add(item);
+        //passando o item com o texto digitado pelo user       
+        //se o prametro novo estiver true adiciona
+        //se estiver false não adiciona
+        if(novo)
+          tasks.add(item);
       }
     },{text: "Cancel"}]});
-  }
+
+    //método closeOptionButtons fecha os botões abertos 
+    //com optionsButoos (exibidos ao arrastar o item da lista)
+    //assim ao terminar de editar o botão será fechado
+    $ionicListDelegate.closeOptionButtons();
+  };
  
 
 //cria uma função que recebe o objeto item como parametro
@@ -130,10 +143,24 @@ $scope.newMessage = function(newMSG){
 
   $scope.onItemAdd = function(){
 
-    var item = {nome: "KKKKK", Finalizada: false};
-    getItem(item);
+    //passa o item vazio, pois o item será criado pelo getitem
+    //que pegara o conteudo digitado no popup e add na lista
+    var item = {nome: "", Finalizada: false};
+    //passa o nome em branco pq é novo item
+
+    getItem(item,true);
+    //no método add deixa o parametro novo com o valor: true
     
     //tasks.add(item);
+  }
+
+  //método para editar o conteudo de um item
+  $scope.onEditItem = function(item){
+    //chama o método getitem que recebe o item para alterar seu conteudo
+    //irá receber um item da lista, qdo for clicado o botão editar da item
+    getItem(item,false);
+    //no método edit deixa o parametro novo com o valor: fasle
+
   }
 
 

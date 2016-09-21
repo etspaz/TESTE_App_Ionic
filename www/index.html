@@ -96,6 +96,10 @@
                    {{item.nome}}
                    <!--item.nome exibe somente o conteudo da prorpiedad nome  -->
                    <ion-delete-button class="ion-minus-circled" ng-click="onItemRemove($index)"> </ion-delete-button>
+                   <!--ion-option-button permite add botões aos itens da lista
+                       permitindo exibir ao arrastar o item da lis 
+                       ng-click="onEditItem(item) chama o método que abre o popup para editar o conteudo do item-->
+                   <ion-option-button class="button-positive" ng-click="onEditItem(item)">Edit</ion-option-button>
                  </div>
                  <div class="col col-10">
                    <button class="button button-small button-positive button-outline" ng-click="onMarkTask(item)"> <i class="icon ion-checkmark" ng-show="item.Finalizada"> </i>
