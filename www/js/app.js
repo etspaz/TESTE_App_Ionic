@@ -1,5 +1,16 @@
 // Ionic Starter App
 
+//com a aplicação concluída, é necessário dar o build,
+//primeiro deve definir a plataforma (andorid ou ios)
+//no prompt, após acessar a pasta do projeto, digitar
+//ionic plataform add android; para defniri a plataforma que ira rodar
+//depois pode digitar os comandos para o build
+//ionic build android
+//pra funcionar o build deve ter instalado na maquina o
+//java e sdk android ou android suite
+
+
+
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -95,8 +106,13 @@ $scope.newMessage = function(newMSG){
         //passando o item com o texto digitado pelo user       
         //se o prametro novo estiver true adiciona
         //se estiver false não adiciona
-        if(novo)
+        if(novo){
           tasks.add(item);
+          //salva o item via localstorage
+          
+        }
+        //salva a lista qdo add ou edita
+        tasks.save();
       }
     },{text: "Cancel"}]});
 
@@ -115,6 +131,7 @@ $scope.newMessage = function(newMSG){
     //console.log("passei");
 
     item.Finalizada = !item.Finalizada;
+    tasks.save();
   };
 
 
@@ -133,6 +150,7 @@ $scope.newMessage = function(newMSG){
   $scope.onItemRemove = function(index_it){
 
     tasks.remove(index_it);
+    tasks.save();
 
   };
 
@@ -151,7 +169,7 @@ $scope.newMessage = function(newMSG){
     getItem(item,true);
     //no método add deixa o parametro novo com o valor: true
     
-    //tasks.add(item);
+
   }
 
   //método para editar o conteudo de um item
@@ -160,6 +178,7 @@ $scope.newMessage = function(newMSG){
     //irá receber um item da lista, qdo for clicado o botão editar da item
     getItem(item,false);
     //no método edit deixa o parametro novo com o valor: fasle
+
 
   }
 
